@@ -42,8 +42,6 @@ body {
   justify-content: space-between;
   font-size: 1.2rem;
   opacity: 0.9;
-  padding-left: 20px;
-  padding-right: 20px;
 }
 
 .card {
@@ -99,5 +97,5 @@ body {
 }
 
 a, button, .button-link, .instagram-link {
-  cursor: url('images/cursor_default.png') 13 0, auto !important;
+  cursor: url('images/cursor_default.png'), auto !important;
 }
