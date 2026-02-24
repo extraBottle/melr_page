@@ -5,6 +5,7 @@
 body {
   margin: 0;
   font-family: system-ui, Segoe UI, Roboto, -apple-system, Helvetica, Arial;
+  cursor: url('images/cursor_default.png'), auto;
   overflow: hidden;
 }
 
@@ -75,24 +76,28 @@ body {
 
 .instagram-link svg {
   display: block;      /* Removes the inline behavior of the SVG */
+  pointer-events: none;
 }
 
 .button-link {
   background-color: transparent;
   color: white;
   padding: 0.6rem 1rem;
-  border-radius: 8px;
-  cursor: pointer;
+  border-radius: 8px;  
   font-weight: 600;
   text-decoration: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.3));
-  transition: filter 0.3s ease;
+  transition: filter 0.3s ease;  
 }
 
 .button-link img {
   width: 100px;
-  height: 100px;
+  height: 100px;  
+}
+
+a, button, .button-link, .instagram-link {
+  cursor: url('images/cursor_default.png') 13 0, auto !important;
 }
