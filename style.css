@@ -1,0 +1,98 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, Segoe UI, Roboto, -apple-system, Helvetica, Arial;
+  overflow: hidden;
+}
+
+.main-background {
+  background-image: url('images/wallpaper.jpg');
+  background-size: cover;      /* Scales the image to fill the screen */
+  background-position: center; /* Keeps the image centered */
+  background-repeat: no-repeat;/* Prevents the image from tiling */
+  background-attachment: fixed;/* Keeps the image still while scrolling */
+}
+
+.wrap {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#sub-wrap {
+  background:#d6e3a2;
+}
+
+#top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #333;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  opacity: 0.9;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(10, 10, 10, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px
+}
+
+.icon-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.instagram-link {
+  color: white;
+  display: flex;
+  width: fit-content; /* Or match the SVG width */
+  height: fit-content;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;      /* Extra insurance against line-height issues */
+}
+
+.instagram-link svg {
+  display: block;      /* Removes the inline behavior of the SVG */
+}
+
+.button-link {
+  background-color: transparent;
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.3));
+  transition: filter 0.3s ease;
+}
+
+.button-link img {
+  width: 100px;
+  height: 100px;
+}
