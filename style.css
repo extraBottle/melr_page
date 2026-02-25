@@ -1,12 +1,35 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
 * {
   box-sizing: border-box;
 }
 
+html{
+  font-size: 62.5%; /* 1rem = 10px */
+}
+
 body {
   margin: 0;
-  font-family: system-ui, Segoe UI, Roboto, -apple-system, Helvetica, Arial;
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  font-size: 1.6rem;
   cursor: url('images/cursor_default.png'), auto;
   overflow: hidden;
+}
+
+.light {
+  font-weight: 300;
+}
+.regular {
+  font-weight: 400;
+}
+.medium {
+  font-weight: 500;
+}
+.semibold {
+  font-weight: 600;
+}
+.bold {
+  font-weight: 700;
 }
 
 .main-background {
@@ -30,36 +53,57 @@ body {
 }
 
 #top-bar {
+  /* Keep your fixed positioning */
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 50px;
+  height: 5.4rem;
   background-color: #333;
   color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   opacity: 0.9;
+
+  /* Switch to Grid */
+  display: grid;
+  /* Create 3 equal columns */
+  grid-template-columns: 1fr 1fr 1fr; 
+  /* Vertically center everything in the bar */
+  align-items: center; 
+}
+
+/* Now, define how the items inside behave */
+#top-bar > div:nth-child(1) {
+  justify-self: start;
+  white-space: nowrap;
+  padding-left: 2rem;
+}
+
+#top-bar > div:nth-child(2) {
+  justify-self: center;
+}
+
+#top-bar > div:nth-child(3) {
+  justify-self: end;
+  padding-right: 2rem; /* Optional: adds some breathing room on the right */
 }
 
 .card {
   background: white;
   padding: 2rem;
-  border-radius: 12px;
+  border-radius: 1.2rem;
   box-shadow: 0 6px 20px rgba(10, 10, 10, 0.08);
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 400px
+  width: 40rem
 }
 
 .icon-link {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 1rem;
 }
 
 .instagram-link {
@@ -78,11 +122,11 @@ body {
 }
 
 .button-link {
+  position: absolute;
   background-color: transparent;
   color: white;
   padding: 0.6rem 1rem;
-  border-radius: 8px;  
-  font-weight: 600;
+  border-radius: 0.8rem;  
   text-decoration: none;
   display: flex;
   flex-direction: column;
@@ -92,8 +136,22 @@ body {
 }
 
 .button-link img {
-  width: 100px;
-  height: 100px;  
+  width: 13rem;
+  height: 13rem;  
+}
+
+#myself {
+  width: 48rem;
+  height: 48rem;  
+}
+
+.folder-text {
+  color: white;
+  text-align: center;  
+  /* Layer 1: Sharp dark edge | Layer 2: Soft diffused glow for clouds */
+  text-shadow: 
+    0px 1px 2px rgba(0, 0, 0, 0.9), 
+    0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
 a, button, .button-link, .instagram-link {

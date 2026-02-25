@@ -1,3 +1,26 @@
+const startingOffsets = {
+    'ME?!': { x: -570, y: -260 }, 
+    'What did you get\nfrom being an\nArt Student?': { x: 10, y: -300 },  
+    'Adobe Korea\nPotential Duo\nProject': { x: 210, y: -200 },
+    'AI x Design :\nReceipt holds\nmemories': { x: 420, y: -250 },   
+    'Logofolio': { x: -10, y: -50 }, 
+    'TRENDZ Branding': { x: 190, y: 80 }, 
+    'Gordon Parks\nGallery': { x: -70, y: 120 },
+    'Contact': { x: 390, y: 60 } 
+};
+
+// 처음 로드시 각 폴더의 위치 지정
+document.querySelectorAll('.button-link').forEach(el => {
+    const label = el.querySelector('div:last-child').innerText.trim();
+    const offset = startingOffsets[label];
+
+    if (offset) {        
+        el.style.transform = `translate(${offset.x}px, ${offset.y}px)`;        
+        el.setAttribute('data-x', offset.x);
+        el.setAttribute('data-y', offset.y);
+    }
+});
+
 // 현재 드래그 하는지 체크
 let isMoving = false;
 
