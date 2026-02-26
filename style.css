@@ -38,6 +38,9 @@ body {
   background-position: center; /* Keeps the image centered */
   background-repeat: no-repeat;/* Prevents the image from tiling */
   background-attachment: fixed;/* Keeps the image still while scrolling */
+  /* Prevents text selection while dragging folders or windows */
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .wrap {
@@ -52,8 +55,7 @@ body {
   background:#d6e3a2;
 }
 
-#top-bar {
-  /* Keep your fixed positioning */
+#top-bar {  
   position: fixed;
   top: 0;
   left: 0;
@@ -64,15 +66,12 @@ body {
   font-size: 1.8rem;
   opacity: 0.9;
 
-  /* Switch to Grid */
   display: grid;
   /* Create 3 equal columns */
-  grid-template-columns: 1fr 1fr 1fr; 
-  /* Vertically center everything in the bar */
+  grid-template-columns: 1fr 1fr 1fr;   
   align-items: center; 
 }
 
-/* Now, define how the items inside behave */
 #top-bar > div:nth-child(1) {
   justify-self: start;
   white-space: nowrap;
@@ -85,7 +84,7 @@ body {
 
 #top-bar > div:nth-child(3) {
   justify-self: end;
-  padding-right: 2rem; /* Optional: adds some breathing room on the right */
+  padding-right: 2rem;
 }
 
 .card {
@@ -109,15 +108,15 @@ body {
 .instagram-link {
   color: white;
   display: flex;
-  width: fit-content; /* Or match the SVG width */
+  width: fit-content;
   height: fit-content;
   align-items: center;
   justify-content: center;
-  line-height: 0;      /* Extra insurance against line-height issues */
+  line-height: 0;
 }
 
 .instagram-link svg {
-  display: block;      /* Removes the inline behavior of the SVG */
+  display: block;
   pointer-events: none;
 }
 
@@ -133,6 +132,12 @@ body {
   align-items: center;
   filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.3));
   transition: filter 0.3s ease;  
+}
+
+button.button-link {
+  border: none;
+  outline: none;  
+  appearance: none;
 }
 
 .button-link img {
@@ -154,6 +159,134 @@ body {
     0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
-a, button, .button-link, .instagram-link {
+/* style.css */
+
+#app-window {
+    position: fixed;
+    z-index: 2000;
+    background: white;
+    border-radius: 1.2rem;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    overflow: hidden;
+    
+    /* Center and Hide initially */
+    width: 70rem;
+    height: 56rem;
+    top: 40%;
+    left: 20%;
+    margin-top: -250px;
+    margin-left: -200px;
+    
+    opacity: 0;
+    transform: scale(0.3);
+    transition: 
+        opacity 0.2s ease-out, 
+        transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    pointer-events: none;
+}
+
+/* Use a separate class to kill transitions ONLY during dragging */
+#app-window.dragging {
+  transition: none !important;
+}
+
+#app-window.window-active {
+    opacity: 1;
+    transform: scale(1) !important;
+    pointer-events: auto;
+}
+
+.window-header {
+    background: #ebebeb;
+    height: 3rem;
+    display: grid;
+    /* Create 3 equal columns */
+    grid-template-columns: 1fr 1fr 1fr;   
+    align-items: center; 
+    padding: 0 1rem;
+}
+
+.window-controls { display: flex; gap: 0.8rem; }
+.window-controls span { width: 1.2rem; height: 1.2rem; border-radius: 50%; }
+.close-btn { background: #ff5f56; }
+.minimize-btn { background: #ffbd2e; }
+.maximize-btn { background: #27c93f; }
+
+#window-title { width: 100%; text-align: center; color: #666; }
+.window-content { 
+  padding: 4rem; 
+  color: #333; 
+  
+  /* 1. Calculate height: Total Window Height minus the Header Height (30px) */
+  height: calc(100% - 3rem); 
+    
+  /* 2. Enable vertical scrolling */
+  overflow-y: auto; 
+    
+  /* 3. Optional: Smooth scrolling for inner anchors */
+  scroll-behavior: smooth; 
+    
+  /* 4. Ensure content doesn't horizontal scroll */
+  overflow-x: hidden; 
+
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* For Chrome, Safari, and Edge */
+.window-content::-webkit-scrollbar {
+    width: 0.8rem;
+}
+
+.window-content::-webkit-scrollbar-track {
+    background: transparent; /* Track is always invisible */
+}
+
+.window-content::-webkit-scrollbar-thumb {
+    /* Use rgba for transparency instead of display:none */
+    background-color: rgba(0, 0, 0, 0); 
+    border-radius: 1rem; 
+    background-clip: content-box;
+    transition: background-color 0.8s ease-out; /* Smooth fade in/out */  
+}
+
+/* Show thumb when the JS 'is-scrolling' class is active */
+.window-content.is-scrolling::-webkit-scrollbar-thumb{
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s ease-out;
+}
+
+/* Darker when directly hovering the bar */
+.window-content::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Hide icons by default */
+.window-controls span::before {
+    opacity: 0;    
+    -webkit-font-smoothing: antialiased; /* Ensures the thickness looks crisp */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Show icons when the mouse enters the controls area */
+.window-controls:hover span::before {
+    opacity: 1;
+}
+
+.close-btn::before { content: "✕"; font-size: 0.7rem; color: #4d0000; font-weight: 900;}
+.minimize-btn::before { content: "—"; font-size: 0.7rem; color: #995700; font-weight: 900;}
+.maximize-btn::before { content: "＋"; font-size: 1.1rem; color: #006400; font-weight: 600;}
+
+/* Ensure icons are centered */
+.window-controls span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+div, a, button, .button-link, .instagram-link {
   cursor: url('images/cursor_default.png'), auto !important;
 }
