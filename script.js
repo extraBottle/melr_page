@@ -123,12 +123,17 @@ meButton.addEventListener('click', function(e) {
     // PREVENT the click from bubbling up to the window
     e.stopPropagation();
 
+    // If the window is already open, close it and stop here
+    if (appWindow.classList.contains('window-active')) {
+        closeApp();
+        return;
+    }
+
     // calculate button's position
     const btnRect = this.getBoundingClientRect();
     const btnCenterX = btnRect.left + btnRect.width / 2;
     const btnCenterY = btnRect.top + btnRect.height / 2;
-
-    // current window position
+    
     const currentX = parseFloat(appWindow.getAttribute('data-window-x')) || 0;
     const currentY = parseFloat(appWindow.getAttribute('data-window-y')) || 0;
 
@@ -138,12 +143,7 @@ meButton.addEventListener('click', function(e) {
     appWindow.style.setProperty('--origin-x', `${relativeX}px`);
     appWindow.style.setProperty('--origin-y', `${relativeY}px`);
 
-    // If the window is already open, close it and stop here
-    if (appWindow.classList.contains('window-active')) {
-        closeApp();
-        return;
-    }
-
+    // insert aboutme content
     const data = projectData['ME?!'];
     const contentArea = appWindow.querySelector('.window-content');
     const titleArea = appWindow.querySelector('#window-title');
@@ -188,5 +188,19 @@ window.addEventListener('click', function(event) {
 
 // Function to close the window
 function closeApp() {
+    // calculate button's position
+    const btnRect = meButton.getBoundingClientRect();
+    const btnCenterX = btnRect.left + btnRect.width / 2;
+    const btnCenterY = btnRect.top + btnRect.height / 2;
+    
+    const currentX = parseFloat(appWindow.getAttribute('data-window-x')) || 0;
+    const currentY = parseFloat(appWindow.getAttribute('data-window-y')) || 0;
+
+    const relativeX = btnCenterX - currentX;
+    const relativeY = btnCenterY - currentY;
+
+    appWindow.style.setProperty('--origin-x', `${relativeX}px`);
+    appWindow.style.setProperty('--origin-y', `${relativeY}px`);
+
     appWindow.classList.remove('window-active');
 }
